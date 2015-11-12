@@ -28,3 +28,19 @@ exports.questions = function(req,res) {
 
   res.render('quizes/questions', {prg: array})
 };
+
+exports.idQuestion = function(req, res) {
+  var id = req.params.id;
+  var num_question = quiz.pregunta_num();
+
+  if(id < 1 || id > num_question){
+    res.render('quizes/ID_Question', {prg: "Esa pregunta no existe."})
+  }
+  else if(isNaN(id) === true) {
+    res.render('quizes/ID_Question', {prg: "La URL no es correcta."})
+  }
+  else {
+    current = quiz.q[id-1];
+    res.render('quizes/question', {pregunta: current.pregunta});
+  }
+};
